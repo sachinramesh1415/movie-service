@@ -18,16 +18,8 @@ public class MovieController {
         this.movieService = movieService;
     }
     @PostMapping("movie")
-    public ResponseEntity<?> saveMovie(@RequestBody Movie movie)
-    {
-        ResponseEntity responseEntity;
-        try {
-            responseEntity = new ResponseEntity<Movie>(movieService.saveMovie(movie), HttpStatus.CREATED);
-        } catch (MovieAlreadyExistsException e)
-        {
-            responseEntity = new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
-        }
-        return responseEntity;
+    public ResponseEntity<?> saveMovie(@RequestBody Movie movie) throws MovieAlreadyExistsException {
+        return new ResponseEntity<Movie>(movieService.saveMovie(movie), HttpStatus.CREATED);
     }
     @GetMapping("movie")
     public ResponseEntity<?> getAllMovies() {
@@ -67,15 +59,8 @@ public class MovieController {
         return responseEntity;
     }
     @GetMapping("movie/search={name}")
-    public ResponseEntity<?> findByName(@PathVariable String name)
+    public ResponseEntity<?> findByName(@PathVariable String name) throws MovieNotFoundException
     {
-        ResponseEntity responseEntity;
-        try {
-            responseEntity = new ResponseEntity<List<Movie>>(movieService.findByName(name),HttpStatus.OK);
-        } catch (MovieNotFoundException e)
-        {
-            responseEntity = new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
-        }
-        return responseEntity;
+        return new ResponseEntity<List<Movie>>(movieService.findByName(name),HttpStatus.OK);
     }
 }
