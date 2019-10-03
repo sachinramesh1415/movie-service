@@ -1,6 +1,8 @@
 package com.stackroute.movie.controller;
 
 import com.stackroute.movie.domain.Movie;
+import com.stackroute.movie.exceptions.MovieAlreadyExistsException;
+import com.stackroute.movie.exceptions.MovieNotFoundException;
 import com.stackroute.movie.service.MovieService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,7 @@ public class MovieController {
         ResponseEntity responseEntity;
         try {
             responseEntity = new ResponseEntity<Movie>(movieService.saveMovie(movie), HttpStatus.CREATED);
-        } catch (Exception e)
+        } catch (MovieAlreadyExistsException e)
         {
             responseEntity = new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
         }
@@ -70,7 +72,7 @@ public class MovieController {
         ResponseEntity responseEntity;
         try {
             responseEntity = new ResponseEntity<List<Movie>>(movieService.findByName(name),HttpStatus.OK);
-        } catch (Exception e)
+        } catch (MovieNotFoundException e)
         {
             responseEntity = new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
         }
