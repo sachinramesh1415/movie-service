@@ -5,31 +5,40 @@ import com.stackroute.movie.exceptions.MovieAlreadyExistsException;
 import com.stackroute.movie.exceptions.MovieNotFoundException;
 import com.stackroute.movie.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@Primary
-public class MovieServiceImpl implements MovieService {
+@Qualifier("check")
+public class MovieServiceImpl2 implements MovieService {
 
     MovieRepository movieRepository;
     @Autowired
-    public MovieServiceImpl(MovieRepository movieRepository) {
+    public MovieServiceImpl2(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
     @Override
     public Movie saveMovie(Movie movie) throws MovieAlreadyExistsException {
-        return null;
+        if(movieRepository.existsById(movie.getMovieId()))
+        {
+            throw new MovieAlreadyExistsException("Movie already exists");
+        }
+        Movie savedMovie = movieRepository.save(movie);
+        if(savedMovie==null)
+        {
+            throw new MovieAlreadyExistsException("Movie already exists");
+        }
+        return savedMovie;
     }
     @Override
     public List<Movie> getAllMovies() {
-        return null;
+        return movieRepository.findAll();
     }
     @Override
     public void deleteMovie(int movieId) {
-        movieRepository.deleteById(movieId);
+
     }
     @Override
     public void updateMovie(Movie movie) {
