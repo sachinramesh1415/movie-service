@@ -5,6 +5,7 @@ import com.stackroute.movie.exceptions.MovieAlreadyExistsException;
 import com.stackroute.movie.exceptions.MovieNotFoundException;
 import com.stackroute.movie.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "api/v1")
 public class MovieController {
-    @Autowired
-    private ConfigurableEnvironment env;
     @Autowired
     MovieService movieService;
     @PostMapping("movie")
