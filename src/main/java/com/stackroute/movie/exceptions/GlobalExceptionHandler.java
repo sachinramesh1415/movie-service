@@ -19,6 +19,6 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(SQLException.class)
     public ResponseEntity<?> handleSQLException() {
-        return new ResponseEntity<String>("Database Connectivity Error",HttpStatus.CONFLICT);
+        return new ResponseEntity<String>("Database Connectivity Error",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
