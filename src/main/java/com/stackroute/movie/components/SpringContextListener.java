@@ -15,15 +15,15 @@ public class SpringContextListener implements ApplicationListener<ContextRefresh
     @Autowired
     private MovieRepository movieRepository;
     @Value("${movieid2}")
-    int id;
+    private int id;
     @Value("${title2}")
-    String title;
+    private String title;
     @Value("${overview2}")
-    String overview;
+    private String overview;
     @Value("${tagline2}")
-    String tagline;
+    private String tagline;
     @Value("${rating2}")
-    double rating;
+    private double rating;
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         movieRepository.save(new Movie(id,title,overview,tagline,rating));

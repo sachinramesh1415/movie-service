@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface MovieService {
 
-    public Movie saveMovie(Movie movie) throws MovieAlreadyExistsException;
-    public List<Movie> getAllMovies();
-    public void deleteMovie(int movieId);
-    public void updateMovie(Movie movie);
-    public List<Movie> findByName(String name) throws MovieNotFoundException;
+    public Movie saveMovie(Movie movie) throws MovieAlreadyExistsException,Exception;
+    public List<Movie> getAllMovies() throws Exception;
+    public Movie deleteMovie(int movieId) throws MovieNotFoundException, Exception;
+    public void updateMovie(Movie movie) throws MovieNotFoundException, Exception;
+    public List<Movie> findByName(String name) throws MovieNotFoundException, Exception;
 }

@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<!--<repositories>
-		<repository>
-			<id>sachin_ramesh-movie-service</id>
-			<url>https://packagecloud.io/priv/1be3c647f1bbe3466d935812571872e563bf15de7369d4ea/sachin_ramesh/movie-service/maven2</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>-->
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -120,22 +108,5 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<!--<extensions>
-			<extension>
-				<groupId>io.packagecloud.maven.wagon</groupId>
-				<artifactId>maven-packagecloud-wagon</artifactId>
-				<version>0.0.6</version>
-			</extension>
-		</extensions>-->
 	</build>
-	<!--<distributionManagement>
-		<repository>
-			<id>packagecloud-sachin_ramesh</id>
-			<url>packagecloud+https://packagecloud.io/sachin_ramesh/movie-service</url>
-		</repository>
-		<snapshotRepository>
-			<id>packagecloud-sachin_ramesh</id>
-			<url>packagecloud+https://packagecloud.io/sachin_ramesh/movie-service</url>
-		</snapshotRepository>
-	</distributionManagement>-->
 </project>

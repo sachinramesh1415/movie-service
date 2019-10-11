@@ -15,14 +15,20 @@ import java.util.List;
 @RequestMapping(value = "api/v1")
 public class MovieController {
     @Autowired
-    MovieService movieService;
+    private MovieService movieService;
+    private ResponseEntity responseEntity;
     @PostMapping("movie")
-    public ResponseEntity<?> saveMovie(@RequestBody Movie movie) throws MovieAlreadyExistsException {
-        return new ResponseEntity<Movie>(movieService.saveMovie(movie), HttpStatus.CREATED);
+    public ResponseEntity<?> saveMovie(@RequestBody Movie movie) throws Exception {
+        try {
+            responseEntity = new ResponseEntity<Movie>(movieService.saveMovie(movie), HttpStatus.CREATED);
+        } catch (MovieAlreadyExistsException e)
+        {
+            responseEntity = new ResponseEntity<String>(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
     }
-    @GetMapping("movie")
-    public ResponseEntity<?> getAllMovies() {
-        ResponseEntity responseEntity;
+    @GetMapping("movies")
+    public ResponseEntity<?> getAllMovies() throws Exception {
         try {
             responseEntity = new ResponseEntity<List<Movie>>(movieService.getAllMovies(),HttpStatus.OK);
         }catch (Exception e)
@@ -32,9 +38,8 @@ public class MovieController {
         return responseEntity;
     }
     @PutMapping("movie")
-    public ResponseEntity<?> updateMovie(@RequestBody Movie movie)
+    public ResponseEntity<?> updateMovie(@RequestBody Movie movie) throws Exception
     {
-        ResponseEntity responseEntity;
         try {
             movieService.updateMovie(movie);
             responseEntity = new ResponseEntity<String>("Successfully updated", HttpStatus.OK);
@@ -45,12 +50,10 @@ public class MovieController {
         return responseEntity;
     }
     @DeleteMapping("movie/{movieId}")
-    public ResponseEntity<?> deleteMovie(@PathVariable int movieId)
+    public ResponseEntity<?> deleteMovie(@PathVariable int movieId) throws Exception
     {
-        ResponseEntity responseEntity;
         try {
-            movieService.deleteMovie(movieId);
-            responseEntity = new ResponseEntity<String>("Successfully deleted", HttpStatus.OK);
+            responseEntity = new ResponseEntity<Movie>(movieService.deleteMovie(movieId), HttpStatus.OK);
         } catch (Exception e)
         {
             responseEntity = new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
@@ -58,8 +61,13 @@ public class MovieController {
         return responseEntity;
     }
     @GetMapping("movie/search={name}")
-    public ResponseEntity<?> findByName(@PathVariable String name) throws MovieNotFoundException
-    {
-        return new ResponseEntity<List<Movie>>(movieService.findByName(name),HttpStatus.OK);
+    public ResponseEntity<?> findByName(@PathVariable String name) throws Exception {
+        try {
+            responseEntity = new ResponseEntity<List<Movie>>(movieService.findByName(name), HttpStatus.OK);
+        }catch (MovieNotFoundException e)
+        {
+            responseEntity  = new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
+        }
+        return responseEntity;
     }
 }

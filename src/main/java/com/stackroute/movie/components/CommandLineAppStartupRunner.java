@@ -15,15 +15,15 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     @Autowired
     private Environment env;
     @Value("${movieid}")
-    int id;
+    private int id;
     @Value("${title}")
-    String title;
+    private String title;
     @Value("${overview}")
-    String overview;
+    private String overview;
     @Value("${tagline}")
-    String tagline;
+    private String tagline;
     @Value("${rating}")
-    double rating;
+    private double rating;
     @Override
     public void run(String... args) throws Exception {
        movieRepository.save(new Movie(id,title,overview,tagline,rating));
